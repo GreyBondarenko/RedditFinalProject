@@ -1,11 +1,16 @@
 package RedditTestSetup;
 
 import RedditTestPages.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -29,24 +34,41 @@ public class RedditTestSetup { //<- class scope
     RedditCreatePostPage OBJRedditCreatePostPage;
     RedditHelpPage OBJRedditHelpPage;
     RedditHomePageOtherLinks OBJRedditHomePageOtherLinks;
-
+    @Parameters ({"browser"})
     @BeforeTest
-    public void redditTestSetup() {
-
-        ChromeOptions options = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maxim\\Desktop\\HackerU\\chromedriver.exe");
-        options.addArguments("start-maximized");
-        options.addArguments("enable-automation");
-        // options.addArguments("--headless"); // only if you are ACTUALLY running headless
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-browser-side-navigation");
-        options.addArguments("--disable-gpu");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
-        driver.get("https://www.reddit.com/");
+    public void redditTestSetup(String browser) {
+        if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            WebDriverManager.chromedriver().setup();
+//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maxim\\Desktop\\HackerU\\chromedriver.exe");
+            options.addArguments("start-maximized");
+            options.addArguments("enable-automation");
+            // options.addArguments("--headless"); // only if you are ACTUALLY running headless
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-browser-side-navigation");
+            options.addArguments("--disable-gpu");
+            driver = new ChromeDriver(options);
+            driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+            driver.get("https://www.reddit.com/");
+        }
+        if (browser.equalsIgnoreCase("FF")){
+            FirefoxOptions options = new FirefoxOptions();
+            WebDriverManager.firefoxdriver().driverVersion("0.31.0").setup();
+//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maxim\\Desktop\\HackerU\\chromedriver.exe");
+//            options.addArguments("start-maximized");
+//            options.addArguments("enable-automation");
+//            // options.addArguments("--headless"); // only if you are ACTUALLY running headless
+//            options.addArguments("--no-sandbox");
+//            options.addArguments("--disable-dev-shm-usage");
+//            options.addArguments("--disable-browser-side-navigation");
+//            options.addArguments("--disable-gpu");
+//            options.addArguments("--port 58660");
+            driver = new FirefoxDriver();
+            driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+            driver.get("https://www.reddit.com/");
+        }
     }
-
     @Test(priority = 0)
     public void home_page_test() {
         ObjRedditHomePage = new RedditHomePage(driver);
@@ -269,6 +291,6 @@ public class RedditTestSetup { //<- class scope
         OBJRedditHomePageOtherLinks.enterPressPage();
     }
 
-//    @AfterTest
-//    public void end_of_Test(){driver.quit();}
+    @AfterTest
+    public void end_of_Test(){driver.quit();}
 }

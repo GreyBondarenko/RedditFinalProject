@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
 import static org.testng.AssertJUnit.assertEquals;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
@@ -76,6 +78,7 @@ public class RedditSignUpPage {
         }
         String UsernameErr = driver.findElement(UsernameError).getText();
         assertEquals("Username must be between 3 and 20 characters",UsernameErr);
+
         System.out.println("Signing up Error - Username:"+UsernameErr);
         UsernameBox.clear();
     }

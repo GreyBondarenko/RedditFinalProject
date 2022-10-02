@@ -8,6 +8,7 @@
     <artifactId>RedditFinalProject</artifactId>
     <version>1.0-SNAPSHOT</version>
 <dependencies>
+
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
@@ -24,6 +25,13 @@
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
         <version>7.6.1</version>
+        <scope>compile</scope>
+    </dependency>
+    <!--  Web Driver Manager without PC saved driver directory  -->
+    <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>4.0.0</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
