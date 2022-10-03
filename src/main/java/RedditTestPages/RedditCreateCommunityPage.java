@@ -135,7 +135,7 @@ public class RedditCreateCommunityPage {
 
     public void createCommunity() {
         WebElement CommunityNameIcon = driver.findElement(CommunityName);
-        String name = "bot_Invasions00160";
+        String name = "2038ind0938ig5hdjoruigfh394ucn94eg";
         CommunityNameIcon.sendKeys(name);
         WebElement CommunityCreateIcon = driver.findElement(CommunityCreate);
         CommunityCreateIcon.click();
